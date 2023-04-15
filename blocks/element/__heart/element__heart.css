@@ -1,0 +1,19 @@
+.element__heart {
+  transition: .3s ease;
+  cursor: pointer;
+}
+.element__heart:hover{
+  opacity: 0.8;
+}
+.element__heart path {
+  fill: #fff;
+  stroke: #000;
+  stroke-width: 1.5px;
+}
+
+.element__heart:active path {
+  fill: #000;
+  stroke: #000;
+  stroke-width: 0;
+}
+

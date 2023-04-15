@@ -1,0 +1,24 @@
+.elements {
+  max-width: 880px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 20px 17px;
+}
+
+@media (max-width:780px) {
+  .elements {
+    max-width: 680px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 17px 13px;
+  }
+}
+@media (max-width:650px) {
+  .elements {
+    max-width: 282px;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+  }
+}
