@@ -1,5 +1,6 @@
 .profile__box {
   display: flex;
+  align-items: center;
 }
 @media (max-width:650px) {
   .profile__box {
