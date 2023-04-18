@@ -23,7 +23,7 @@
               <h1 class="profile__title">Жак-Ив Кусто</h1>
               <p class="profile__subtitle">Исследователь океана</p>
             </div>
-            <button class="profile__edit-button" type="button" aria-label="редактировать профиль"></button>
+            <button class="profile__edit-button" id="open-popup" type="button" aria-label="редактировать профиль"></button>
           </div>
         </div>
         <button class="profile__add-button" type="button"></button>
@@ -77,7 +77,7 @@
       <p class="footer__copyright">© 2023 Mesto Russia</p>
     </footer>
 
-    <div class="popup">
+    <div class="popup" id="pop-el">
       <!-- popup_opened -->
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
@@ -86,11 +86,12 @@
           <input type="text" placeholder="Введите профессию" name="profession" class="popup__input">
           <button type="submit" class="popup__button">Сохранить</button>
         </form>
-        <button type="submit" class="popup__close"></button>
+        <button id="pop-close" type="submit" class="popup__close"></button>
       </div>
     </div>
 
   </div>
+  <script src="js/script.js"></script>
 </body>
 
 </html>
