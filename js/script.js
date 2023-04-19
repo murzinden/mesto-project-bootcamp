@@ -12,5 +12,3 @@ function removeClass() {
 button.addEventListener('click', addClass);
 
 closeButton.addEventListener('click', removeClass);
-
-

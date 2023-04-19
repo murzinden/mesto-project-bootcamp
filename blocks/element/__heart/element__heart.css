@@ -1,19 +1,16 @@
+
 .element__heart {
-  transition: .3s ease;
+  background-image: url(../../../images/heart.svg);
+  width: 22px;
+  height: 19px;
   cursor: pointer;
+  transition: background-image .3s ease;
 }
-.element__heart:hover{
-  opacity: 0.8;
+.element__heart:active {
+  background-image: url(../../../images/heartblack.svg);
 }
-.element__heart path {
-  fill: #fff;
-  stroke: #000;
-  stroke-width: 1.5px;
+.element__heart:not(:active):hover {
+  opacity: 0.5;
 }
 
-.element__heart:active path {
-  fill: #000;
-  stroke: #000;
-  stroke-width: 0;
-}
 
