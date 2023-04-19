@@ -3,25 +3,4 @@
   background: none;
   cursor: pointer;
   padding: 0;
-  background-image: url(../../../images/closeicon.svg);
-  position: absolute;
-  top: -40px;
-  right: -40px;
-  width: 32px;
-  height: 32px;
-  transition: background-image .3s ease;
 }
-.popup__close:hover {
-  opacity: 0.6;
-}
-
-@media (max-width:650px) {
-  .popup__close {
-    background-size: cover;
-    width: 20px;
-    height: 20px;
-    top: -30px;
-    right: 0;
-  }
-}
-
