@@ -6,10 +6,8 @@
   cursor: pointer;
   transition: background-image .3s ease;
 }
-.element__heart:active {
-  background-image: url(../../../images/heartblack.svg);
-}
-.element__heart:not(:active):hover {
+
+.element__heart:not(.element__heart_liked):hover {
   opacity: 0.5;
 }
 
