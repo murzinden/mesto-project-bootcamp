@@ -138,3 +138,17 @@ cardFormElement.addEventListener('submit', handleCardFormSubmit);
 initialCards.forEach((card) => {
   addCard(card.name, card.link);
 });
+
+
+// === Like ===
+
+function toggleLike(event) {
+  const heartElement = event.target;
+  heartElement.classList.toggle('element__heart_liked');
+}
+
+const heartElements = document.querySelectorAll('.element__heart');
+
+heartElements.forEach((heart) => {
+  heart.addEventListener('click', toggleLike);
+});
