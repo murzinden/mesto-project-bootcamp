@@ -5,4 +5,8 @@
   line-height: 1.2;
   color: #000;
   max-width: 188px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+
 }
