@@ -140,7 +140,7 @@ initialCards.forEach((card) => {
 });
 
 
-// === Like ===
+// === ADD Like ===
 
 function toggleLike(event) {
   const heartElement = event.target;
@@ -152,3 +152,19 @@ const heartElements = document.querySelectorAll('.element__heart');
 heartElements.forEach((heart) => {
   heart.addEventListener('click', toggleLike);
 });
+
+// === Delete Button Card ===
+
+
+function deleteCard(event) {
+  const deleteElement = event.target;
+  const cardElement = deleteElement.closest('.element');
+  cardElement.remove();
+}
+
+const deleteElements = document.querySelectorAll('.element__delete');
+
+deleteElements.forEach((deleteElement) => {
+  deleteElement.addEventListener('click', deleteCard);
+});
+
