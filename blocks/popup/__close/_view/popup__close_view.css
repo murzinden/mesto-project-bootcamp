@@ -1,0 +1,19 @@
+.popup__close_view {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  background-image: url(../../../../images/closeicon.svg);
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+@media (max-width:650px) {
+  .popup__close {
+    background-size: cover;
+    width: 20px;
+    height: 20px;
+    top: -30px;
+    right: 0;
+  }
+}

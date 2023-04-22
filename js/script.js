@@ -168,3 +168,33 @@ deleteElements.forEach((deleteElement) => {
   deleteElement.addEventListener('click', deleteCard);
 });
 
+// === PopUp Image Full ===
+
+document.addEventListener('DOMContentLoaded', () => {
+  const popupView = document.querySelector('#popup-view');
+  const popupCloseView = document.querySelector('#popup-close-view');
+  const popupImage = document.querySelector('.popup__image');
+  const popupCaption = document.querySelector('.popup__caption');
+
+  function openImagePopup(event) {
+    if (event.target.classList.contains('element__image')) {
+      const imageUrl = event.target.src;
+      const imageAlt = event.target.alt;
+      popupImage.src = imageUrl;
+      popupImage.alt = imageAlt;
+      popupCaption.textContent = imageAlt;
+      popupView.classList.add('popup_opened');
+      popupView.classList.remove('popup_closed');
+    }
+  }
+
+  function closeImagePopup() {
+    popupView.classList.add('popup_closed');
+    popupView.classList.remove('popup_opened');
+  }
+
+  const elementsContainer = document.querySelector('.elements');
+  elementsContainer.addEventListener('click', openImagePopup);
+
+  popupCloseView.addEventListener('click', closeImagePopup);
+});
