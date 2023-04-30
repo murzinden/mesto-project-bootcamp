@@ -150,7 +150,7 @@ initialCards.forEach((card) => {
 function toggleLike(event) {
   event.stopPropagation();
   event.preventDefault();
-  
+
   const heartElement = event.target;
   heartElement.classList.toggle('element__heart_liked');
 }
