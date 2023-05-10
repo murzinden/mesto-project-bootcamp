@@ -95,6 +95,8 @@ const buttonAddCard = document.querySelector('#open-form-card');
 const elPopUp = document.querySelector('#pop-card');
 const closeButtonCard = document.querySelector('#pop-card-close');
 
+
+
 function addClassForm() {
   openPopup(elPopUp);
 }
@@ -131,11 +133,59 @@ const initialCards = [
   }
 ];
 
-
 const cardFormElement = document.querySelector('#form-card');
 const nameCardInput = cardFormElement.querySelector('#name-card-input');
 const linkCardInput = cardFormElement.querySelector('#link-card-input');
 const elements = document.querySelector('.elements');
+
+const cardNameError = document.querySelector('#name-card-error');
+const cardLinkError = document.querySelector('#link-card-error');
+const cardSubmitButton = cardFormElement.querySelector('.popup__button');
+
+function validateCardNameInput(inputElement, errorElement) {
+  if (!inputElement.validity.valid) {
+    if (inputElement.validity.valueMissing) {
+      errorElement.textContent = 'Вы пропустили это поле.';
+    } else if (inputElement.validity.tooShort || inputElement.validity.tooLong) {
+      errorElement.textContent = `Минимальное количество символов ${inputElement.minLength}.
+      Длина текста сейчас: ${inputElement.value.length} символ`;
+    }
+    errorElement.classList.add('popup__input-error_visible');
+  } else {
+    errorElement.textContent = '';
+    errorElement.classList.remove('popup__input-error_visible');
+  }
+}
+
+function validateCardImageInput(inputElement, errorElement) {
+  if (!inputElement.validity.valid) {
+    if (inputElement.validity.valueMissing) {
+      errorElement.textContent = 'Вы пропустили это поле.';
+    } else if (inputElement.validity.typeMismatch) {
+      errorElement.textContent = 'Введите адрес сайта';
+    }
+    errorElement.classList.add('popup__input-error_visible');
+  } else {
+    errorElement.textContent = '';
+    errorElement.classList.remove('popup__input-error_visible');
+  }
+}
+
+cardFormElement.addEventListener('input', () => {
+  validateCardNameInput(nameCardInput, cardNameError);
+  validateCardImageInput(linkCardInput, cardLinkError);
+
+  if (cardFormElement.checkValidity()) {
+    cardSubmitButton.disabled = false;
+    cardSubmitButton.style.background = '#000';
+  } else {
+    cardSubmitButton.disabled = true;
+    cardSubmitButton.style.border = '1px solid #c4c4c4';
+    cardSubmitButton.style.background = '#fff';
+    cardSubmitButton.style.color = '#c4c4c4';
+  }
+});
+
 
 function createCard(name, link) {
   const template = document.querySelector('.element-template');
