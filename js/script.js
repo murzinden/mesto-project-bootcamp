@@ -40,6 +40,42 @@ button.addEventListener('click', addClass);
 // === PopUp-Profile-Form ===
 
 
+const profileForm = document.querySelector('#profile-form');
+const submitButton = document.querySelector('#submit-button');
+
+const nameError = document.querySelector('#username-error');
+const professionError = document.querySelector('#profession-error');
+
+function validateInput(inputElement, errorElement) {
+  if (!inputElement.validity.valid) {
+    if (inputElement.validity.valueMissing) {
+      errorElement.textContent = 'Вы пропустили это поле.';
+    } else if (inputElement.validity.tooShort || inputElement.validity.tooLong) {
+      errorElement.textContent = `Минимальное количество символов ${inputElement.minLength}.
+      Длина текста сейчас: ${inputElement.value.length} символ`;
+    }
+    errorElement.classList.add('popup__input-error_visible');
+  } else {
+    errorElement.textContent = '';
+    errorElement.classList.remove('popup__input-error_visible');
+  }
+}
+
+profileForm.addEventListener('input', () => {
+  validateInput(nameInput, nameError);
+  validateInput(jobInput, professionError);
+
+  if (profileForm.checkValidity()) {
+    submitButton.disabled = false;
+    submitButton.style.background = '#000';
+  } else {
+    submitButton.disabled = true;
+    submitButton.style.border = '1px solid #c4c4c4';
+    submitButton.style.background = '#fff';
+    submitButton.style.color = '#c4c4c4';
+  }
+});
+
 function handleFormSubmit(evt) {
   evt.preventDefault();
 
@@ -48,7 +84,7 @@ function handleFormSubmit(evt) {
 
   el
   closePopup(el);
-}
+};
 
 formElement.addEventListener('submit', handleFormSubmit);
 

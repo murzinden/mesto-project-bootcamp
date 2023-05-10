@@ -49,10 +49,18 @@
     <div class="popup" id="pop-el">
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form action="#" name="profile" class="popup__form">
-          <input type="text" placeholder="Имя" name="username" id="username" class="popup__input">
-          <input type="text" placeholder="О себе" name="profession" id="profession" class="popup__input">
-          <button type="submit" class="popup__button">Сохранить</button>
+        <form action="#" name="profile" id="profile-form" class="popup__form">
+          <div class="popup__input-container">
+            <input type="text" placeholder="Имя" name="username" id="username" class="popup__input" required
+              minlength="2" maxlength="40">
+            <span id="username-error" class="popup__input-error"></span>
+          </div>
+          <div class="popup__input-container">
+            <input type="text" placeholder="О себе" name="profession" id="profession" class="popup__input" required
+              minlength="2" maxlength="200">
+            <span id="profession-error" class="popup__input-error"></span>
+          </div>
+          <button type="submit" class="popup__button" id="submit-button" disabled>Сохранить</button>
         </form>
         <button id="pop-close" type="submit" class="popup__close"></button>
       </div>
