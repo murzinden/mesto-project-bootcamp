@@ -9,7 +9,97 @@
   <title>mesto</title>
 </head>
 
+
 <body class="root">
+  <div class="page">
+    <header class="header">
+      <img src="images/logo.svg" alt="mesto-russia" class="header__logo">
+    </header>
+    <main class="content">
+      <section class="profile">
+        <div class="profile__box">
+          <img src="images/avatar.jpg" alt="аватар пользователя" class="profile__avatar">
+          <div class="profile__info">
+            <div class="profile__text">
+              <h1 class="profile__title">Жак-Ив Кусто</h1>
+              <p class="profile__subtitle">Исследователь океана</p>
+            </div>
+            <button class="profile__edit-button" type="button" aria-label="редактировать профиль"></button>
+          </div>
+        </div>
+        <button class="profile__add-button" type="button"></button>
+      </section>
+      <section class="elements">
+        <template class="element-template">
+          <article class="element">
+            <img src="#" alt="карточка" class="element__image">
+            <div class="element__body">
+              <h2 class="element__title">Название</h2>
+              <div class="element__heart"></div>
+              <div class="element__delete"></div>
+            </div>
+          </article>
+        </template>
+      </section>
+    </main>
+    <footer class="footer">
+      <p class="footer__copyright">© 2023 Mesto Russia</p>
+    </footer>
+
+    <div class="popup" id="editProfilePopup">
+      <div class="popup__container">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <form action="#" name="profile" class="popup__form" id="form-profile">
+          <div class="popup__input-container">
+            <input type="text" placeholder="Имя" name="username" class="popup__input" id="username-input" required
+              minlength="2" maxlength="40">
+            <span class="popup__input-error" id="username-error"></span>
+          </div>
+          <div class="popup__input-container">
+            <input type="text" placeholder="О себе" name="profession" class="popup__input" id="profession-input"
+              required minlength="2" maxlength="200">
+            <span class="popup__input-error" id="profession-error"></span>
+          </div>
+          <button type="submit" class="popup__button" disabled>Сохранить</button>
+        </form>
+        <button type="button" class="popup__close"></button>
+      </div>
+    </div>
+
+    <div class="popup" id="addPlacePopup">
+      <div class="popup__container">
+        <h2 class="popup__title">Новое место</h2>
+        <form action="#" name="profile" class="popup__form" id="form-place">
+          <div class="popup__input-container">
+            <input type="text" placeholder="Название" name="card-name" class="popup__input" id="place-input" required
+              minlength="2" maxlength="40">
+            <span class="popup__input-error" id="place-error"></span>
+          </div>
+          <div for="url-input" class="popup__input-container">
+            <input type="url" placeholder="Ссылка на картинку" name="card-image" class="popup__input" id="url-input"
+              required>
+            <span class="popup__input-error" id="url-error"></span>
+          </div>
+          <button type="submit" class="popup__button" disabled>Сохранить</button>
+        </form>
+        <button type="button" class="popup__close"></button>
+      </div>
+    </div>
+
+    <div class="popup popup_view popup_closed">
+      <div class="popup__container_view">
+        <button class="popup__close popup__close_view" type="button"></button>
+        <img src="#" alt="карточка" class="popup__image">
+        <h2 class="popup__caption"></h2>
+      </div>
+    </div>
+
+  </div>
+  <script src="js/script.js"></script>
+</body>
+
+
+<!-- <body class="root">
   <div class="page">
     <header class="header">
       <img src="images/logo.svg" alt="mesto-russia" class="header__logo">
@@ -96,6 +186,6 @@
 
   </div>
   <script src="js/script.js"></script>
-</body>
+</body> -->
 
 </html>
