@@ -8,7 +8,7 @@
 - media запросы
 - модальное окно
 ## Планы по доработке проекта
-**подключить JavaScript**
+**добавить API**
 ## Ссылка на проект  https://murzinden.github.io/mesto-project-bootcamp/
 
 
