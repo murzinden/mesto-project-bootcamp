@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="pages/index.css">
   <title>mesto</title>
 </head>
 
@@ -13,12 +12,12 @@
 <body class="root">
   <div class="page">
     <header class="header">
-      <img src="images/logo.svg" alt="mesto-russia" class="header__logo">
+      <img src="<%=require('./images/logo.svg')%>" alt="mesto-russia" class="header__logo">
     </header>
     <main class="content">
       <section class="profile">
         <div class="profile__box">
-          <img src="images/avatar.jpg" alt="аватар пользователя" class="profile__avatar">
+          <img src="<%=require('./images/avatar.jpg')%>" alt="аватар пользователя" class="profile__avatar">
           <div class="profile__info">
             <div class="profile__text">
               <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -51,14 +50,14 @@
         <h2 class="popup__title">Редактировать профиль</h2>
         <form action="#" name="profile" class="popup__form" id="form-profile">
           <div class="popup__input-container">
-            <input type="text" placeholder="Имя" name="username" class="popup__input" id="username-input" required
+            <input type="text" placeholder="Имя" name="username" class="popup__input" id="username" required
               minlength="2" maxlength="40">
-            <span class="popup__input-error" id="username-error"></span>
+            <span class="popup__input-error username-input-error"></span>
           </div>
           <div class="popup__input-container">
-            <input type="text" placeholder="О себе" name="profession" class="popup__input" id="profession-input"
+            <input type="text" placeholder="О себе" name="profession" class="popup__input" id="profession"
               required minlength="2" maxlength="200">
-            <span class="popup__input-error" id="profession-error"></span>
+            <span class="popup__input-error profession-input-error"></span>
           </div>
           <button type="submit" class="popup__button" disabled>Сохранить</button>
         </form>
@@ -71,14 +70,14 @@
         <h2 class="popup__title">Новое место</h2>
         <form action="#" name="profile" class="popup__form" id="form-place">
           <div class="popup__input-container">
-            <input type="text" placeholder="Название" name="card-name" class="popup__input" id="place-input" required
+            <input type="text" placeholder="Название" name="card-name" class="popup__input" id="place" required
               minlength="2" maxlength="40">
-            <span class="popup__input-error" id="place-error"></span>
+            <span class="popup__input-error place-input-error"></span>
           </div>
-          <div for="url-input" class="popup__input-container">
-            <input type="url" placeholder="Ссылка на картинку" name="card-image" class="popup__input" id="url-input"
+          <div class="popup__input-container">
+            <input type="url" placeholder="Ссылка на картинку" name="card-image" class="popup__input" id="url"
               required>
-            <span class="popup__input-error" id="url-error"></span>
+            <span class="popup__input-error url-input-error"></span>
           </div>
           <button type="submit" class="popup__button" disabled>Сохранить</button>
         </form>
@@ -95,7 +94,7 @@
     </div>
 
   </div>
-  <script src="js/script.js"></script>
+  <!-- <script type="module" src="./js/script.js"></script> -->
 </body>
 
 </html>
