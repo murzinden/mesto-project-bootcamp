@@ -1,10 +1,23 @@
 import '../pages/index.css';
 
+import '../components/api';
+
+import {
+  getProfileInfo,
+  getCards,
+  updateProfileInfo,
+  addCard,
+  deleteCard,
+  updateAvatar
+} from '../components/api.js';
+
+
 import { enableValidation, clearInputErrors } from '../components/validate.js';
 import {
   config,
   elementsSection,
   popupView,
+  profileAvatar,
   profileTitle,
   profileSubTitle,
   profileEditButton,
@@ -15,9 +28,11 @@ import {
   formPlace,
   placeInput,
   urlInput,
-  initialCards,
   userNameInput,
-  professionInput
+  professionInput,
+  avatarEditButton,
+  avatarEdit,
+  urlAvatar
 } from '../components/constants.js';
 import { createCard } from '../components/card.js';
 import {
@@ -27,15 +42,64 @@ import {
   closeByEscKey
 } from '../components/modal.js';
 
+let myId
 
+
+
+// Удаление элемента карточки
+function onDeleteCardElement(cardElement) {
+  cardElement.remove()
+}
+
+// При удалении карточки
+async function handleDeleteCard(card, cardElement) {
+  await deleteCard(card._id)
+  onDeleteCardElement(cardElement)
+}
+
+// Отрисовка каждый карточки
+function renderCard(card) {
+  const newCard = createCard(card, myId, handleDeleteCard)
+  elementsSection.prepend(newCard)
+}
+
+function renderCardsList(cards) {
+  cards.forEach(renderCard)
+}
+
+// Получение и отрисовка начальных карточек с сервера
+async function renderCards() {
+  const cardsList = await getCards()
+  renderCardsList(cardsList.reverse())
+}
+
+// Получение и отрисовка данных профиля с сервера
+async function renderProfileInfo() {
+  const profileInfo = await getProfileInfo()
+  myId = profileInfo._id
+  setProfileInfo(profileInfo.name, profileInfo.about)
+}
+
+// Загрузка начальных данных для карточек и профиля
+renderProfileInfo()
+renderCards()
+
+// Проверка валидации форм
 enableValidation(config);
 
-// open&close popup
+// Устанавливаем данные Профиля
+function setProfileInfo(name, about) {
+  profileTitle.textContent = name
+  profileSubTitle.textContent = about
+}
+
+// Закрытие popup при overlay
 
 document.addEventListener('click', closeByOverlayClick);
-document.addEventListener('keydown', closeByEscKey);
 
-const setProfileInfo = (title, subtitle) => {
+
+// Устанавливаем данные профиля в форму
+function setFormProfileInfo(title, subtitle) {
   userNameInput.value = title;
   professionInput.value = subtitle;
 }
@@ -44,16 +108,24 @@ const setProfileInfo = (title, subtitle) => {
 profileEditButton.addEventListener('click', () => {
   openPopup(editProfilePopup);
   clearInputErrors(editProfilePopup);
-  setProfileInfo(profileTitle.textContent, profileSubTitle.textContent);
+  setFormProfileInfo(profileTitle.textContent, profileSubTitle.textContent);
 });
 
 
 editProfilePopup.querySelector('.popup__close').addEventListener('click', () => closePopup(editProfilePopup));
 
+
 // addPlacePopup
 profileAddButton.addEventListener('click', () => {
   openPopup(addPlacePopup);
   clearInputErrors(addPlacePopup);
+
+  placeInput.value = '';
+  urlInput.value = '';
+
+  const submitButton = addPlacePopup.querySelector('.popup__button');
+  submitButton.setAttribute('disabled', true);
+  submitButton.classList.add(config.inactiveButtonClass);
 });
 
 addPlacePopup.querySelector('.popup__close').addEventListener('click', () => closePopup(addPlacePopup));
@@ -63,39 +135,105 @@ popupView.querySelector('.popup__close').addEventListener('click', () => {
   closePopup(popupView);
 });
 
+async function onUpdateProfileInfo(user) {
+  const updatedUser = await updateProfileInfo(user)
+  setProfileInfo(updatedUser.name, updatedUser.about)
+}
+
 // editProfile
-const handleFormEditSubmit = evt => {
+const handleFormEditSubmit = async evt => {
   evt.preventDefault();
 
-  profileTitle.textContent = userNameInput.value;
-  profileSubTitle.textContent = professionInput.value;
+  const submitButton = editProfilePopup.querySelector('.popup__button');
+  setButtonLoadingText(submitButton, true);
 
-  closePopup(editProfilePopup);
+  const updatedProfile = {
+    name: userNameInput.value,
+    about: professionInput.value
+  }
+
+  try {
+    await onUpdateProfileInfo(updatedProfile);
+  } catch (error) {
+    console.error('Ошибка при обновлении профиля', error);
+  } finally {
+    setButtonLoadingText(submitButton, false);
+    closePopup(editProfilePopup);
+  }
+
 };
 
 form.addEventListener('submit', handleFormEditSubmit);
 
 // addCard
 
-initialCards.forEach(card => {
-  const cardElement = createCard(card.name, card.link);
-  elementsSection.append(cardElement);
-});
 
-formPlace.addEventListener('submit', (event) => {
+async function onAddCard(card) {
+  const newCard = await addCard(card);
+  renderCard(newCard)
+}
+
+formPlace.addEventListener('submit', async (event) => {
   event.preventDefault();
 
-  const name = placeInput.value;
-  const link = urlInput.value;
-  const cardElement = createCard(name, link);
-  elementsSection.prepend(cardElement);
+  const submitButton = formPlace.querySelector('.popup__button');
+  setButtonLoadingText(submitButton, true);
 
-  closePopup(addPlacePopup);
+  const newCard = {
+    name: placeInput.value,
+    link: urlInput.value
+  }
 
-  placeInput.value = '';
-  urlInput.value = '';
+  try {
+    await onAddCard(newCard);
+  } catch (error) {
+    console.error('Ошибка при добавлении карточки', error);
+  } finally {
+    setButtonLoadingText(submitButton, false);
+    closePopup(addPlacePopup);
+  }
 
 });
+
+// avatarEditButton
+
+avatarEditButton.addEventListener('click', () => {
+  openPopup(avatarEdit);
+
+})
+
+avatarEdit.querySelector('.popup__close').addEventListener('click', () => closePopup(avatarEdit));
+
+
+// обновление аватара
+avatarEdit.querySelector('.popup__form').addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const avatarUrl = urlAvatar.value;
+
+  const avatarData = {
+    avatar: avatarUrl
+  };
+
+  const submitButton = avatarEdit.querySelector('.popup__button');
+  setButtonLoadingText(submitButton, true);
+
+  try {
+    await updateAvatar(avatarData);
+    profileAvatar.src = avatarUrl;
+    closePopup(avatarEdit);
+  } catch (error) {
+    console.error('Ошибка при обновлении аватара', error);
+  } finally {
+    setButtonLoadingText(submitButton, false);
+  }
+});
+
+
+// кнопка сохранить меняется при на сохранение при загрузке 
+function setButtonLoadingText(button, isLoading) {
+  button.textContent = isLoading ? 'Сохранение...' : 'Сохранить';
+}
 
 
 

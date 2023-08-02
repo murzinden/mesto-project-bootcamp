@@ -7,12 +7,22 @@ const config = {
   errorClass: 'popup__input-error'
 }
 
+const apiConfig = {
+  baseUrl: 'https://mesto.nomoreparties.co/v1/wbf-cohort-10/',
+  headers: {
+    authorization: '0a12c416-69e2-43e2-9b5b-a31e4aa140c8',
+    'Content-Type': 'application/json'
+  }
+}
+
+
 const cardTemplate = document.querySelector('.element-template').content;
 const elementsSection = document.querySelector('.elements');
 const popupView = document.querySelector('.popup_view');
 const popupImage = popupView.querySelector('.popup__image');
 const popupCaption = popupView.querySelector('.popup__caption');
 
+const profileAvatar = document.querySelector('.profile__avatar')
 const profileTitle = document.querySelector('.profile__title');
 const profileSubTitle = document.querySelector('.profile__subtitle');
 
@@ -20,6 +30,10 @@ const profileEditButton = document.querySelector('.profile__edit-button');
 const editProfilePopup = document.querySelector('#editProfilePopup');
 const profileAddButton = document.querySelector('.profile__add-button');
 const addPlacePopup = document.querySelector('#addPlacePopup');
+
+const avatarEditButton = document.querySelector('.profile__edit-avatar');
+const avatarEdit = document.querySelector('#addAvatarPopup');
+const urlAvatar = document.querySelector('input[name="avatar-name"');
 
 const form = document.querySelector('.popup__form');
 
@@ -66,6 +80,7 @@ export {
   popupCaption,
   popupImage,
   popupView,
+  profileAvatar,
   profileTitle,
   profileSubTitle,
   profileEditButton,
@@ -78,5 +93,9 @@ export {
   urlInput,
   initialCards,
   userNameInput,
-  professionInput
+  professionInput,
+  apiConfig,
+  avatarEditButton,
+  avatarEdit,
+  urlAvatar
 }
