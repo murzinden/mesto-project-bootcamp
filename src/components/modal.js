@@ -2,9 +2,11 @@
 
 const openPopup = popup => {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closeByEscKey);
 }
 const closePopup = popup => {
   popup.classList.remove('popup_opened');
+  document.addEventListener('keydown', closeByEscKey);
 }
 
 const closeByOverlayClick = event => {
