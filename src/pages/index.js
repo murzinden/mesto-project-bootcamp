@@ -34,28 +34,29 @@ import {
   avatarEdit,
   urlAvatar
 } from '../components/constants.js';
-import { createCard } from '../components/card.js';
+import { createCard, onDeleteCardElement } from '../components/card.js';
 import {
   openPopup,
   closePopup,
-  closeByOverlayClick,
-  closeByEscKey
+  closeByOverlayClick
 } from '../components/modal.js';
 
 let myId
 
 
 
-// Удаление элемента карточки
-function onDeleteCardElement(cardElement) {
-  cardElement.remove()
-}
+
 
 // При удалении карточки
 async function handleDeleteCard(card, cardElement) {
-  await deleteCard(card._id)
-  onDeleteCardElement(cardElement)
+  try {
+    await deleteCard(card._id);
+    onDeleteCardElement(cardElement);
+  } catch (err) {
+    console.error('Ошибка при удалении карточки', err);
+  }
 }
+
 
 // Отрисовка каждый карточки
 function renderCard(card) {
@@ -68,10 +69,22 @@ function renderCardsList(cards) {
 }
 
 // Получение и отрисовка начальных карточек с сервера
-async function renderCards() {
-  const cardsList = await getCards()
-  renderCardsList(cardsList.reverse())
+// async function renderCards() {
+//   const cardsList = await getCards()
+//   renderCardsList(cardsList.reverse())
+// }
+
+async function initialDataLoad() {
+  try {
+    const [profileInfo, cardsList] = await Promise.all([getProfileInfo(), getCards()]);
+    myId = profileInfo._id;
+    setProfileInfo(profileInfo.name, profileInfo.about);
+    renderCardsList(cardsList.reverse());
+  } catch (error) {
+    console.error('Ошибка при загрузке начальных данных', error);
+  }
 }
+
 
 // Получение и отрисовка данных профиля с сервера
 async function renderProfileInfo() {
@@ -81,8 +94,9 @@ async function renderProfileInfo() {
 }
 
 // Загрузка начальных данных для карточек и профиля
-renderProfileInfo()
-renderCards()
+renderProfileInfo();
+initialDataLoad();
+// renderCards()
 
 // Проверка валидации форм
 enableValidation(config);
@@ -154,11 +168,11 @@ const handleFormEditSubmit = async evt => {
 
   try {
     await onUpdateProfileInfo(updatedProfile);
+    closePopup(editProfilePopup);
   } catch (error) {
     console.error('Ошибка при обновлении профиля', error);
   } finally {
     setButtonLoadingText(submitButton, false);
-    closePopup(editProfilePopup);
   }
 
 };
@@ -230,7 +244,7 @@ avatarEdit.querySelector('.popup__form').addEventListener('submit', async (event
 });
 
 
-// кнопка сохранить меняется при на сохранение при загрузке 
+// кнопка сохранить меняется при на сохранение при загрузке
 function setButtonLoadingText(button, isLoading) {
   button.textContent = isLoading ? 'Сохранение...' : 'Сохранить';
 }
