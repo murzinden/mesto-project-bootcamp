@@ -31,6 +31,7 @@ const editProfilePopup = document.querySelector('#editProfilePopup');
 const profileAddButton = document.querySelector('.profile__add-button');
 const addPlacePopup = document.querySelector('#addPlacePopup');
 
+const avatarOverlay = document.querySelector('.profile__img-overlay')
 const avatarEditButton = document.querySelector('.profile__edit-avatar');
 const avatarEdit = document.querySelector('#addAvatarPopup');
 const urlAvatar = document.querySelector('input[name="avatar-name"');
@@ -97,5 +98,6 @@ export {
   apiConfig,
   avatarEditButton,
   avatarEdit,
-  urlAvatar
+  urlAvatar,
+  avatarOverlay
 }

@@ -30,9 +30,9 @@ import {
   urlInput,
   userNameInput,
   professionInput,
-  avatarEditButton,
   avatarEdit,
-  urlAvatar
+  urlAvatar,
+  avatarOverlay
 } from '../components/constants.js';
 import { createCard, onDeleteCardElement } from '../components/card.js';
 import {
@@ -68,11 +68,7 @@ function renderCardsList(cards) {
   cards.forEach(renderCard)
 }
 
-// Получение и отрисовка начальных карточек с сервера
-// async function renderCards() {
-//   const cardsList = await getCards()
-//   renderCardsList(cardsList.reverse())
-// }
+// Получение и отрисовка начальных карточек с сервера и отрисовка данных профиля с сервера
 
 async function initialDataLoad() {
   try {
@@ -85,18 +81,10 @@ async function initialDataLoad() {
   }
 }
 
-
-// Получение и отрисовка данных профиля с сервера
-async function renderProfileInfo() {
-  const profileInfo = await getProfileInfo()
-  myId = profileInfo._id
-  setProfileInfo(profileInfo.name, profileInfo.about)
-}
-
 // Загрузка начальных данных для карточек и профиля
-renderProfileInfo();
+
 initialDataLoad();
-// renderCards()
+
 
 // Проверка валидации форм
 enableValidation(config);
@@ -200,18 +188,18 @@ formPlace.addEventListener('submit', async (event) => {
 
   try {
     await onAddCard(newCard);
+    closePopup(addPlacePopup);
   } catch (error) {
     console.error('Ошибка при добавлении карточки', error);
   } finally {
     setButtonLoadingText(submitButton, false);
-    closePopup(addPlacePopup);
   }
 
 });
 
 // avatarEditButton
 
-avatarEditButton.addEventListener('click', () => {
+avatarOverlay.addEventListener('click', () => {
   openPopup(avatarEdit);
 
 })
