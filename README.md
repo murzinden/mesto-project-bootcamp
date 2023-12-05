@@ -7,8 +7,7 @@
 - position
 - media queries
 - modal window
-## Планы по доработке проекта
-**доработать недочеты**
+
 ## Project link:  https://murzinden.github.io/mesto-project-bootcamp/
 
 
