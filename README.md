@@ -1,14 +1,14 @@
-# Проект: Место
+# Project: Mesto
 
-## **проект о местах России, который наглядно показывает использование таких технологий как:**
-- Б.Э.М.
+## **A project about places in Russia, which visually demonstrates the use of technologies such as:**
+- B.E.M.
 - display: flex
 - display: grid
 - position
-- media запросы
-- модальное окно
+- media queries
+- modal window
 ## Планы по доработке проекта
 **доработать недочеты**
-## Ссылка на проект  https://murzinden.github.io/mesto-project-bootcamp/
+## Project link:  https://murzinden.github.io/mesto-project-bootcamp/
 
 
